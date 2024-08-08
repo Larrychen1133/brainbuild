@@ -1,0 +1,1214 @@
+/* Dallas Scott - ds4015 */
+
+
+/* Larry Chen - LC3718 */
+
+/* styling for quiz pages */
+.box-bg {
+  background-color: #ebf5ee;
+  padding: 1em;
+  border: 1px solid black;
+  color: black;
+}
+
+.quiz-question {
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.flash {
+  animation: flash 1s infinite;
+}
+
+.audioScore {
+  color: red;
+  font-size: 55px;
+  text-align: center;
+}
+
+.smallTimer {
+  color: red;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+
+#timerRow {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+
+/* for feedback message */
+.feedback-message {
+  padding: 10px;
+  margin: 50px auto;
+  border-radius: 5px;
+  color: #FFF;
+  text-align: center;
+  font-size: 20px;
+  width: 50%;
+}
+
+.correct-feedback {
+  background-color: #4CAF50;
+  /* Green for correct */
+}
+
+.incorrect-feedback {
+  background-color: #f44336;
+  /* Red for incorrect */
+}
+
+/* same question feedback */
+.alert-info {
+  background-color: orange;
+}
+
+
+
+
+
+/* for next question buton */
+.btn-primary {
+  color: black;
+  background-color: #DDFFF7;
+  border: 1px solid black;
+  font-size: 20px;
+  padding: 15px 30px;
+  border-radius: 5px;
+  margin: 50px auto;
+}
+
+.option-text label {
+  font-size: 22px;
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  font-family: "Newsreader", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.box-bg-2 {
+  background-color: #ebf5ee;
+  padding: 0.5em;
+  border: 1.5px solid black;
+}
+
+/* progress bar */
+.progress-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  margin: 100px auto;
+  background-color: #f0f0f0;
+}
+
+.progress-bar-item {
+  flex-grow: 1;
+  height: 20px;
+  background-color: #ddd;
+  margin: 2px;
+}
+
+.progress-bar-item.active {
+  background-color: #5C4033;
+}
+
+/* for /results page feedback message */
+.feedback {
+  color: black;
+  font-family: "Viaoda Libre", serif;
+  font-size: 50px;
+  margin: 30px auto;
+}
+
+/* for results page score */
+.score {
+  font-size: 100px;
+  font-weight: bold;
+  font-family: "Cinzel", serif;
+  padding: 10px;
+  border: 1px dashed black;
+  margin: 100px auto 20px auto;
+}
+
+/* for home page link on results page */
+.blue {
+  color: blue;
+}
+
+/* Fonts used */
+.viaoda-libre-regular {
+  font-family: "Viaoda Libre", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.quintessential-regular {
+  font-family: "Quintessential", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.cinzel-400 {
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.newsreader-400 {
+  font-family: "Newsreader", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+/* audio controls */
+
+/* Hide default audio controls */
+audio::-webkit-media-controls-panel,
+audio::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+
+/* Style the progress bar */
+audio {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+  position: relative;
+}
+
+
+
+
+
+/* min vertical height of page to allow scrolling */
+body {
+  background-color: #DDFFF7;
+  min-height: 140vh;
+}
+
+/* line spacing */
+p {
+  line-height: 2;
+}
+
+/* used for puzzle input boxes */
+.blank {
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+  border-bottom: 1px solid black;
+  margin-right: 5px;
+}
+
+.correct {
+  background-color: green;
+}
+
+
+/* cross off found letters in puzzle */
+.crossed {
+  position: relative;
+}
+
+span.crossed::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 140%;
+  height: 1px;
+  background-color: red;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* used to flip navigation arrows */
+.flip-horizontal {
+  transform: scaleX(-1);
+}
+
+/* CSS style arrows used in learning */
+.arrow-up {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #48ADA9;
+}
+
+
+.arrow-up::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: -5px;
+  width: 10px;
+  height: 30px;
+
+  background-color: #48ADA9;
+  display: block;
+}
+
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 20px solid #48ADA9;
+  display: inline-block;
+  position: relative;
+}
+
+.arrow-down::after {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -5px;
+  width: 10px;
+  height: 40px;
+
+  background-color: #48ADA9;
+  display: block;
+}
+
+.hipResult {
+  border: 1px dashed #2F4858;
+  padding: 0.5em;
+  width: 70%;
+  justify-content: center;
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+}
+
+.no-border {
+  border: none;
+}
+
+.btn-1 {
+  margin-right: 5px;
+  background-color: #ebf5ee;
+  color: #6c757d;
+  border: 2px solid #f5c6cb;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.btn.custom-btn-sm {
+  background-color: #ebf5ee;
+  color: #6c757d;
+  justify-content: center;
+  padding: 20px 40px;
+  border: 2px solid #f5c6cb;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+}
+
+.btn.custom-btn {
+  background-color: #ebf5ee;
+  color: #6c757d;
+  padding: 20px 40px;
+  border: 2px solid #f5c6cb;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.btn.custom-btn:hover {
+  background-color: #07393cff;
+  color: #ffffff;
+}
+
+.btn.custom-btn:active {
+  background-color: #2ba19f;
+}
+
+.btn.custom-btn-sm {
+  background-color: #ebf5ee;
+  display: inline-block;
+  color: #6c757d;
+  padding: 5px 5px;
+  border: 2px solid #f5c6cb;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn.custom-btn-sm:hover {
+  background-color: #07393cff;
+  color: #ffffff;
+}
+
+.btn.custom-btn-ssm:active {
+  background-color: #2ba19f;
+}
+
+.p-justify {
+  text-align: justify
+}
+
+.audio-wrong {
+  background-color: red;
+  width: 65%;
+  padding: 0.5em;
+  color: #FFFFFF;
+  border: 1px dashed #000;
+  margin: 5% auto;
+}
+
+.incorrect-cross {
+  background-color: red;
+  text-align: center;
+  color: #FFFF;
+  width: 90px;
+  /* Set a fixed width for incorrect cells */
+  border: 1px solid black;
+  /* Add a border for better visibility */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.white {
+  background-color: #fff;
+  text-align: center;
+  border: 1px dashed black;
+}
+
+/* letter input styling for puzzle */
+input.puzzle {
+  background-color: #ebf5ee;
+  border: 1px solid #ccc;
+  padding: 5px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  width: 20px;
+  height: 25px;
+}
+
+/* red background for wrong letters in puzzle */
+input.incorrect {
+  background-color: #FF7377;
+  width: 26px;
+}
+
+
+.image-container-bar {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.image-container-bar img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.image-container-bar:hover img {
+  transform: scale(1.1);
+}
+
+img {
+  max-width: 60%;
+  height: auto;
+}
+
+.custom-input {
+  width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 12px;
+  color: #333;
+}
+
+/* radio button customization */
+
+/* Customize the label (the container) */
+.rad-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.rad-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.rad-container:hover input~.checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.rad-container input:checked~.checkmark {
+  background-color: #07393cff;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.rad-container input:checked~.checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.rad-container .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* Drag-drop puzzle */
+.puz-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image-container {
+  position: absolute;
+  width: 100%;
+  min-height: 150px;
+  left: 0%;
+}
+
+.image-container img {
+  max-width: 50%;
+  height: auto;
+  align-items: center;
+  object-fit: contain;
+}
+
+
+.boxes-container,
+.words-container {
+  position: relative;
+  margin: 0 auto;
+  justify-content: center;
+  width: 95%;
+}
+
+.box {
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+}
+
+.blank-field-body,
+.blank-field-axon,
+.blank-field-dendr {
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+}
+
+
+.blank-field-pariet,
+.blank-field-frontal,
+.blank-field-occip,
+.blank-field-tempor {
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+}
+
+.blank-field-pariet {
+  top: 10%;
+  left: 50%;
+  height: 18%;
+  width: 20%;
+  border: 1.5px dashed black;
+}
+
+.blank-field-frontal {
+  top: 20%;
+  left: 25%;
+  width: 20%;
+  height: 18%;
+  border: 1.5px dashed black;
+}
+
+.blank-field-occip {
+  top: 35%;
+  left: 70%;
+  width: 20%;
+  height: 18%;
+  border: 1.5px dashed black;
+}
+
+
+.blank-field-tempor {
+  top: 45%;
+  left: 45%;
+  width: 20%;
+  height: 18%;
+  border: 1.5px dashed black;
+}
+
+.blank-field-axon {
+  top: 35%;
+  left: 65%;
+  width: 35%;
+  height: 37px;
+  border: 1.5px dashed black;
+}
+
+.blank-field-dendr {
+  top: 45%;
+  left: 0%;
+  width: 45%;
+  height: 37px;
+  border: 1.5px dashed black;
+}
+
+.cell-empty {
+  background-color: #15073c;
+  opacity: 0.3;
+}
+
+.cell {
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  margin: 0.5%;
+  border: 1px dashed black;
+  display: inline-block;
+  padding: 0;
+}
+
+.cell-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.black {
+  background-color: #ebf5ee;
+  ;
+}
+
+.pre-filled {
+  background-color: #073c2a;
+  text-align: center;
+  color: #FFF;
+  border: 1px solid #000;
+}
+
+.blank-field-body {
+  top: 0%;
+  left: 60%;
+  width: 40%;
+  height: 37px;
+  border: 1.5px dashed black;
+}
+
+.arrow {
+  position: absolute;
+  border: 1px solid black;
+  z-index: 0;
+}
+
+#arrow-1 {
+  top: 10%;
+  left: 40%;
+  width: 21%;
+  height: 1px;
+  transform-origin: 0, 0;
+  transform: rotate(-25deg);
+}
+
+#arrow-2 {
+  top: 26%;
+  left: 30%;
+  width: 15%;
+  height: 1px;
+  transform-origin: 0 0;
+  transform: rotate(90deg);
+}
+
+
+
+
+.word-container {
+  display: inline-block;
+  margin-right: 10px;
+  z-index: 2;
+}
+
+.word-box {
+  border: 1.5px solid black;
+  display: inline-block;
+  padding: 5px;
+  width: 45%;
+  margin-bottom: 10px;
+  margin-top: 10%;
+  z-index: 2;
+}
+
+.word-boxQ {
+  border: 1.5px solid black;
+  display: inline-block;
+  margin: 2%;
+  width: 20%;
+  height: 10%;
+  padding: 1.5%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  z-index: 2;
+}
+
+.word {
+  cursor: pointer;
+}
+
+.blank-field-nt,
+.blank-field-synapse,
+.blank-field-receptor,
+.blank-field-vesicle {
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+}
+
+.blank-field-synapse {
+  top: 50%;
+  left: 55%;
+  width: 45%;
+  height: 37px;
+  border: 1.5px dashed black;
+}
+
+.blank-field-receptor {
+  top: 75%;
+  left: 55%;
+  width: 45%;
+  height: 37px;
+  border: 1.5px dashed black;
+}
+
+.blank-field-vesicle {
+  top: 24.8%;
+  left: 55%;
+  width: 45%;
+  height: 37px;
+  border: 1.5px dashed black;
+}
+
+.blank-field-nt {
+  top: 0%;
+  left: 55%;
+  width: 45%;
+  height: 37px;
+  border: 1.5px dashed black;
+}
+
+
+/* old implementation */
+/* .box-bg {
+  background-color: #33658A;
+  padding: 1em;
+  border: 1px solid black;
+} */
+
+.gray {
+  background-color: darkgray;
+}
+
+.light-gray {
+  background-color: #ddd;
+}
+
+/* used for puzzle solution */
+.green {
+  color: green;
+  font-weight: bold;
+}
+
+
+/* top navigation/title bars */
+.top-bar {
+  background-color: #07393cff;
+}
+
+.title-bar {
+  background-color: #2ba19f;
+}
+
+.col-bar {
+  border-right: 1px solid #2ba19f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-body-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+figcaption {
+  font-size: 14px;
+  color: #000;
+  margin-top: 5px;
+}
+
+.text-semi-light {
+  color: #d6d6d6;
+}
+
+.draggable {
+  cursor: pointer;
+  font-family: ;
+}
+
+.concept-box {
+  background-color: #FF7377;
+  border: 1.5px solid #07393cff;
+}
+
+.concept-text {
+  font-size: 12px;
+  color: #fff;
+}
+
+a:hover {
+  color: #D3DCD6;
+}
+
+.bullet1 {
+  font-size: 20px;
+  color: #86615c;
+  padding: 1em;
+}
+
+.bullet2 {
+  font-size: 20px;
+  color: #9b287b;
+  padding: 1em;
+}
+
+
+.score-size {
+  font-size: 60px;
+
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.image-container-bar img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.1);
+}
+
+.image-container2 {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.image-container2-bar img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(156, 112, 112, 0);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.overlay-text {
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  font-family: "Cinzel";
+}
+
+.blank {
+  color: white;
+}
+
+.cups-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: space-around;
+}
+
+.cup {
+  width: 75px;
+  height: 75px;
+  position: absolute;
+  display: inline-block;
+  background-image: url('/static/cup.png');
+  background-size: cover;
+  transition: transform 0.5s;
+}
+
+
+
+.cup:hover {
+  background-color: #f0f0f0;
+}
+
+
+.image-container-bar:hover .overlay {
+  opacity: 1;
+}
+
+.custom-muted-bg {
+  background-color: #A4BDBA;
+}
+
+.darker-image {
+  filter: brightness(55%);
+}
+
+.lighter-image {
+  filter: brightness(300%);
+}
+
+/* text sizing for different screen sizes */
+
+/* small screens */
+@media screen and (max-width: 768px) {
+  .text {
+    font-size: 14px;
+  }
+
+  .sub-heading {
+    font-size: 15px;
+  }
+
+  .heading {
+    font-size: 33px;
+  }
+
+  .first-letter {
+    font-size: 42px;
+    font-weight: bold;
+  }
+
+  .first-letter-btn {
+    font-size: 27px;
+    font-weight: bold;
+  }
+
+  .text-md {
+    font-size: 14px;
+  }
+
+  .text-sm {
+    font-size: 12px;
+  }
+}
+
+/* medium screens */
+@media screen and (min-width: 810px) and (max-width: 1280px) {
+  .text {
+    font-size: 18px;
+  }
+
+  .sub-heading {
+    font-size: 25px;
+  }
+
+  .heading {
+    font-size: 39px;
+  }
+
+  .first-letter {
+    font-size: 46px;
+    font-weight: bold;
+  }
+
+  .first-letter-btn {
+    font-size: 31px;
+    font-weight: bold;
+  }
+
+  .text-md {
+    font-size: 18px;
+  }
+
+  .text-sm {
+    font-size: 14px;
+  }
+
+  .text-lg {
+    font-size: 20px;
+  }
+
+  .col-min {
+    min-height: 250px;
+    max-height: 300px;
+  }
+
+  .model-height {
+    min-height: 450px;
+    max-height: 500px;
+  }
+
+  #arrow-3 {
+    top: 25%;
+    left: 27%;
+    width: 32%;
+    height: 1px;
+    transform-origin: 0, 0;
+    transform: rotate(-25deg);
+  }
+
+  #arrow-4 {
+    top: 37%;
+    left: 38%;
+    width: 17%;
+    height: 1px;
+    transform-origin: 0 0;
+    transform: rotate(0deg);
+  }
+
+  #arrow-5 {
+    top: 52%;
+    left: 29%;
+    width: 27%;
+    height: 1px;
+    transform-origin: 0 0;
+    transform: rotate(15deg);
+  }
+
+  #arrow-6 {
+    top: 70%;
+    left: 27%;
+    width: 31%;
+    border: 1px solid gray;
+    height: 1px;
+    transform-origin: 0 0;
+    transform: rotate(25deg);
+  }
+
+}
+
+/* large screens */
+@media screen and (min-width: 1281px) {
+  .text {
+    font-size: 25px;
+  }
+
+  .sub-heading {
+    font-size: 30px;
+  }
+
+  .heading {
+    font-size: 46px;
+  }
+
+  .first-letter {
+    font-size: 53px;
+    font-weight: bold;
+  }
+
+  .first-letter-btn {
+    font-size: 38px;
+    font-weight: bold;
+  }
+
+  .text-md {
+    font-size: 20px;
+  }
+
+  .text-lg {
+    font-size: 23px;
+  }
+
+  .text-sm {
+    font-size: 16px;
+  }
+
+  .col-min {
+    min-height: 300px;
+    max-height: 350px;
+  }
+
+  .model-height {
+    min-height: 500px;
+    max-height: 550px;
+  }
+
+  #arrow-3 {
+    top: 25%;
+    left: 25%;
+    width: 32%;
+    height: 1px;
+    transform-origin: 0, 0;
+    transform: rotate(-33deg);
+  }
+
+  #arrow-4 {
+    top: 43%;
+    left: 36%;
+    width: 19%;
+    height: 1px;
+    transform-origin: 0 0;
+    transform: rotate(-15deg);
+  }
+
+  #arrow-5 {
+    top: 60%;
+    left: 33%;
+    width: 23%;
+    height: 1px;
+    transform-origin: 0 0;
+    transform: rotate(0deg);
+  }
+
+  #arrow-6 {
+    top: 69%;
+    left: 31%;
+    width: 27%;
+    border: 1px solid gray;
+    height: 1px;
+    transform-origin: 0 0;
+    transform: rotate(25deg);
+  }
+
+}
+
+.custom-col {
+  max-height: 70px;
+  min-width: 50px;
+}
+
+/* old implementation */
+.white-text {
+  color: #FFFFFF;
+}
+
+.navbar-bg {
+  background-color: #2F4858;
+}
+
+/* left and right boxes with dashed borders */
+.box-left {
+  background-color: #ebf5ee;
+  border: 1.5px dashed #07393cff;
+}
+
+.home-box {
+  border: 1px solid #07393cff;
+}
+
+.tool-box {
+  max-height: 50px;
+}
+
+.tool-boxQ {
+  max-height: 30px;
+}
+
+.bpoint {
+  max-height: 15px;
+  padding-right: 5px;
+}
+
+.box-right {
+  background-color: #DDFFF7;
+  border: 1.5px dashed #07393cff;
+  position: relative;
+}
+
+
+/* remove underline from links */
+a {
+  color: inherit;
+  text-decoration: none;
+}

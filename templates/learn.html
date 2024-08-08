@@ -1,0 +1,263 @@
+<!-- Dallas Scott - ds4015 -->
+{% extends "layout.html" %}
+{% block content %}
+<input type="hidden" id="quizQ" value="no">
+{% if lesson.id >= 6 and lesson.id <=9 %} <div class="row pt-1 pb-1 custom-muted-bg">
+  <div class="col-3 col-md-3 col-lg-3 text-center">
+    <a href="/learn/6">
+      <div class="image-container-bar">
+        <img src="/static/eye.png" class="img-fluid custom-col m-0" alt="Vision">
+        <div class="overlay">
+          <div class="overlay-text">Vision</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-3 col-md-3 col-lg-3 text-center">
+    <a href="/learn/8">
+      <div class="image-container-bar">
+        <img src="/static/ear.png" class="img-fluid custom-col" alt="Hearing">
+        <div class="overlay">
+          <div class="overlay-text">Sound</div>
+        </div>
+    </a>
+  </div>
+  </div>
+  <div class="col-3 col-md-3 col-lg-3 text-center">
+    <a href="/learn/7">
+      <div class="image-container-bar">
+        <img src="/static/finger.png" class="img-fluid darker-image custom-col" alt="Touch">
+        <div class="overlay">
+          <div class="overlay-text">Touch</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-3 col-md-3 col-lg-3 text-center">
+    <a href="/learn/9">
+      <div class="image-container-bar">
+        <img src="/static/thinker.png" class="img-fluid lighter-image custom-col" alt="Intelligence">
+        <div class="overlay">
+          <div class="overlay-text">Int</div>
+        </div>
+
+      </div>
+    </a>
+  </div>
+  </div>
+  {%endif%}
+  <div class="d-flex flex-row p-3 mt-2">
+    <div class="col-12 col-md-6 col-lg-4 p-4">
+      <div class="row">
+        <div class="col-12 box-left quintessential-regular text">
+          <div class="row">
+            <div class="col-12 sub-heading text-center p-3">
+              {{ lesson.concept_title}}
+            </div>
+          </div>
+          <div class="row p-3 pt-0">
+            <div class="col-12 text-lg">
+              {{ lesson.left_box | safe }}
+            </div>
+          </div>
+          {% if lesson.nt_effect %}
+          <div class="d-flex flex-row justify-content-center p-5 pb-4 pt-0">
+            <div class="col-2">
+              <span class="arrow-up"></span>
+            </div>
+            <div class="col-10 pt-3">
+              {{ lesson.concept_title }}
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-1"></div>
+            <div class="col-7 text-left text-sm text-muted">
+              Increase leads to
+              {% if lesson.nt_dir == "Down" %}
+              decrease
+              {%else%}
+              increase
+              {%endif%}
+              in
+            </div>
+          </div>
+          <div class="row justify-content-center p-5 pt-4">
+            <div class="d-flex col-2 pt-3">
+              {%if lesson.nt_dir == "Up" %}
+              <span class="arrow-up"></span>
+              {%else%}
+              <span class="arrow-down"></span>
+              {%endif%}
+            </div>
+            <div class="d-flex align-content-start col-10 pb-2">
+              <p>{{ lesson.nt_effect }}</p>
+            </div>
+          </div>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+
+
+    {% if lesson.model %}
+    <input type="hidden" id="rotSpeed" value=0.01>
+    <input type="hidden" id="modelTest" value="yes_model">
+    <input type="hidden" id="modelBg" value="{{lesson.model_bg}}">
+    <div class="col-12 col-md-6 col-lg-5 d-flex justify-content-center">
+      <div class="row">
+        <div class="col model-height mb-5" id="model" data-path='{{ model }}'>
+        </div>
+        <div class="row tool-box justify-content-center">
+          <div class="col-3 tool-box">
+            <img class="tool-box" src="/static/leftclick.png">Rotate
+          </div>
+          <div class="col-3 tool-box">
+            <img class="tool-box" src="/static/rightclick.png">Pan
+          </div>
+          <div class="col-3 tool-box">
+            <img class="tool-box" src="/static/magnify.png">Zoom
+          </div>
+        </div>
+      </div>
+    </div>
+    {% elif lesson.video %}
+    <input type="hidden" id="modelTest" value="no_model">
+    <div class="col-12 col-md-6 col-lg-5 p-4">
+      <iframe width="560" height="315" src="{{ lesson.video }}"></iframe>
+    </div>
+    {% else %}
+    <input type="hidden" id="modelTest" value="no_model">
+    <div class="col-12 col-md-6 col-lg-5 p-4">
+      <img class="col-12" src="/static/{{lesson.right_image}}" alt="{{ lesson.concept_title}}">
+    </div>
+    {% endif %}
+
+    {%if lesson.puzzle_type == "Crossword" %}
+    <script>var puzzleType = "Crossword";</script>
+    <script>var puzzleList = "No puzzle";</script>
+    <script>var puzzleGrid = {{ lesson.puzzle | tojson | safe }};</script>
+    <script>var solutionGrid = {{ lesson.solution| tojson | safe }};</script>
+    <div class="col-12 col-md-6 col-lg-3 p-0 quintessential-regular">
+      <div class="row box-right">
+        <div class="row">
+          <div class="col-12 sub-heading text-center p-3 pb-0 mb-0">Criss-Cross</div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-sm text-center p-3">
+            {% for w in lesson.crosswords %}
+            {{w}}&nbsp;&nbsp;&nbsp;
+            {%endfor%}
+          </div>
+        </div>
+        <div id="crossword" class="col-12 p-3 mb-3"></div>
+        <div id="success"></div>
+
+      </div>
+      {%endif%}
+
+
+      {%if lesson.puzzle_type == "Audio" %}
+      <script>var puzzleType = "Audio";</script>
+      <script>var puzzleList = "No puzzle";</script>
+      <script>const audioClips = {{ puzzle['audioClips'] | tojson }};</script>
+      <div class="col-12 col-md-6 col-lg-3 p-4">
+        <div class="row box-right">
+          <div class="p-3 mb-0 pb-0 col-12 text-center text-lg quintessential-regular">
+            Type the Words
+          </div>
+          <div class="col-12 mt-3 mb-2 pt-0 text-center">
+            <button class="btn mt-0 mb-0 pt-0 btn-primary custom-btn-sm" id="startButton">Start</button>
+          </div>
+          <audio id="audioPlayer" controls preload="auto">
+            <source src="/static/audio_files/temporal1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="col-12 audioScore mt-0 pt-0 pb-0 mb-0">
+            <p><span class="mb-0 pb-0 viaoda-libre-regular score-size" id="showScore"></span></p>
+          </div>
+          <div class="col-12 mt-0 justify-content-center">
+            <p class="mt-0 newsreader-400 text-center" id="result"></p>
+          </div>
+          <div class="col-12 text-center mt-0 pt-0">
+            <input type="text" class="mt-0 custom-input" id="userInput" placeholder="Enter what you heard">
+          </div>
+          <button class="btn btn-primary custom-btn-sm mt-3 mb-0" id="nextButton" disabled
+            onclick="checkAnswer()">Next</button>
+          <div class="col-10 text-center mt-3 pt-2 mb-0 text-sm quintessential-regular">
+            Esc: Stop Game
+          </div>
+          <div class="col-2 mt-3 mb-0 text-sm quintessential-regular text-center" id="timerRow">
+            <p><span class="text-md" id="timer">20</span></p>
+          </div>
+
+        </div>
+
+        {%endif%}
+
+        {% if lesson.puzzle_type == "Cup" %}
+        <script>var puzzleType = "Cup";</script>
+        <script>var puzzleList = "No puzzle";</script>
+        <div class="col-12 col-md-6 col-lg-3 p-4">
+          <div class="row box-right">
+            {% if lesson.hint %}
+            <div class="pt-2 quintessential-regular text-center text-md"><b>Hint</b>: {{ lesson.hint }}</div>
+            {% endif %}
+
+            {{ puzzle | safe }}
+
+            {% elif lesson.puzzle_type == "Match" %}
+            <script>var puzzleList = "No puzzle";</script>
+            <script>var puzzleType = "Match";</script>
+            {{ puzzle | safe }}
+
+            {% elif lesson.puzzle_type == "Word" %}
+            <script>
+              var puzzleList = {{ lesson['puzzle'] | tojson }};
+              var solution = {{ lesson['solution'] | tojson }};
+            </script>
+            <script>var puzzleType = "Word";</script>
+            <div class="col-12 col-md-6 col-lg-3 p-4">
+              <div class="row box-right">
+                {% if lesson.hint %}
+                <div class="pt-2 quintessential-regular text-center text-md"><b>Hint</b>: {{ lesson.hint }}</div>
+                {% endif %}
+                <div class="col-12 cinzel-400 text-md pt-3" id="puzzle">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 text-center viaoda-libre-regular text-md p-2" id="status"></div>
+              </div>
+              {% endif %}
+
+              {% if lesson.mnemonic %}
+              <div class="row justify-content-center">
+                <div class="col-10 concept-box mt-4 pt-2 pl-3 concept-text">
+                  <div clas="row">
+                    <div class="col-12 quintessential-regular text-sm">Mnemonic</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 text-center cinzel-400 p-2 text-sm">
+                      {% for m in lesson.mnemonic %}
+                      {{m | safe}}
+                      {%endfor%}
+                    </div>
+                  </div>
+
+                </div>
+                {%endif%}
+
+
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row p-3 pt-5 justify-content-center">
+            <div class="col-12 viaoda-libre-regular text-center text-md text-muted">
+              {{ duration | safe }}
+            </div>
+          </div>
+
+
+
+          {% endblock %}

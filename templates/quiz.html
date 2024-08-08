@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <!-- add progress bar -->
+    <div class="row">
+        <div class="col-12">
+            <div class="progress-bar-container">
+                {% for i in range(1, 11) %}
+                <div class="progress-bar-item{% if i == question.quiz_id|int %} active{% endif %}"></div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Flash messages for feedback -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="feedback-message {{ category }}" style="margin-bottom: 20px;">{{ message|safe }}</div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    <form action="/quiz/{{ question.quiz_id }}" method="post">
+        <div class="row white-text justify-content-center">
+            <div class="col-7 box-bg p-4">
+                <div class="row">
+                    <div class="col-12 sub-heading quintessential-regular quiz-question">{{ question.question }}</div>
+                </div>
+                <div class="row m-4">
+                    <div class="col-12 p-4 box-bg-2">
+                        {% if question.model %}
+                        <div class="row justify-content-center">
+                        <input type="hidden" id="modelTest" value="yes_model">
+                        <input type="hidden" id="modelBg" value="0xebf5ee">
+                        <input type="hidden" id="rotSpeed" value=0.00>
+                        <div class="col-7 justify-content-center col-min" id="model" data-path='/static/{{ question.model }}'>
+                        </div>                        
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-3 tool-boxQ">
+                              <img class="tool-boxQ" src="/static/leftclick.png">Rotate
+                            </div>
+                            <div class="col-3 tool-boxQ">
+                              <img class="tool-boxQ" src="/static/rightclick.png">Pan
+                            </div>        
+                            <div class="col-3 tool-boxQ">
+                              <img class="tool-boxQ" src="/static/magnify.png">Zoom
+                            </div>        
+                          </div>                        
+                    </div>
+                    {% elif question.image %}
+                    <div class="row justify-content-center">                        
+                    <div class="text-center m-4">
+                        <img src="/static/{{ question.image }}" style="max-width: 100%; height: auto;">
+                    </div>
+                    </div>
+                        {% endif %}
+                        {% if question.quiz_id == "1" or question.quiz_id == "10" %}
+                        <!-- Matching question -->
+                        <div class="row p-4 m-4 box-right light-gray">
+                            {% for option in question.options %}
+                            <div class="col-12 mb-2">
+                                <label>{{ option }}</label>
+                                <select name="{{ option }}" class="form-select" {% if question.submitted %}disabled{% endif %}>
+                                    <option value="">Select</option>
+                                    {% for description in question.descriptions %}
+                                    <option value="{{ description }}" {% if question.submitted and question.submitted_answers.get(neurotransmitter) == description %}selected{% endif %}>{{ description }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Fill-in-the-blank question -->
+                        {% elif question.quiz_id == "9" %}
+                        <div class="row p-4 m-4 box-right light-gray">
+                            {% for idx in range(question.blanks|length) %}
+                            <div class="col-12 option-text text-center">
+                                <label>
+                                    <input type='text' name='blank_{{ idx }}' class='fill-blank-input' required value='{{ question.submitted_answers.get("blank_" + idx|string, "") }}'>
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        {% else %}
+                        <!-- Multiple choice question -->
+                        <div class="row p-4 m-4 box-right light-gray">                        
+                            {% for option in question.options %}
+                            <div class="col-12 option-text">
+                                <label class="rad-container">{{ option }}
+                                    <input type="radio" name="option" id="option{{ loop.index }}" value="{{ option }}" {% if question.submitted and question.submitted_answers.get('option') == option %}checked{% endif %} {% if question.submitted %}disabled{% endif %}>
+                                    <span class="checkmark"></span>
+                                </label>                            
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if question.feedback %}
+                <div class="feedback-message {{ question.feedback_class }}" style="margin-bottom: 20px;">{{ question.feedback|safe }}</div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Button moved outside of box -->
+        <div class="row justify-content-center mt-4">
+            <div class="col-12 text-center">
+                {% if not question.submitted %}
+                <button type="submit" class="btn btn-primary cinzel-400">Submit</button>
+                {% elif question.next_question != "end" %}
+                <a href="/quiz/{{ question.next_question }}" class="btn btn-primary cinzel-400">Next Question</a>
+                {% else %}
+                <a href="/results" class="btn btn-primary cinzel-400">Results</a>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
